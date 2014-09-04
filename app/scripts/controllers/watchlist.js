@@ -12,7 +12,6 @@ angular.module('stockDogApp')
     // Initializations
     $scope.companies = CompanyService.query();
     $scope.watchlist = WatchlistService.query($routeParams.listId);
-    console.log($scope.watchlist);
     $scope.stocks = $scope.watchlist.stocks;
     $scope.newStock = {};
     var addStockModal = $modal({

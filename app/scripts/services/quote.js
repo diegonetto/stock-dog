@@ -13,14 +13,11 @@ angular.module('stockDogApp')
     var BASE = 'http://query.yahooapis.com/v1/public/yql';
 
     this.register = function (stock) {
-      console.log('---REGISTER---');
       stocks.push(stock);
     };
 
     this.deregister = function (stock) {
-      console.log('---DEREGISTER---');
       _.remove(stocks, stock);
-      console.log(stocks);
     };
 
     this.clear = function () {
@@ -28,14 +25,9 @@ angular.module('stockDogApp')
     };
 
     function update (quotes) {
-      console.log(quotes);
-      // TODO: Remove
-      if (quotes.length !== stocks.length) {
-        console.log('ERROR: stocks and quotes are out of sync!');
-      } else {
+      // Ensure that the current quotes match registered stocks
+      if (quotes.length === stocks.length) {
         _.each(quotes, function (quote, idx) {
-          if (quote.symbol === stocks[idx].company.symbol) { console.log('PASSED'); }
-          else { console.log('FAIL: out of sync'); }
           var stock = stocks[idx];
           stock.lastPrice = parseFloat(quote.LastTradePriceOnly);
           stock.change = quote.Change;
