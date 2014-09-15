@@ -21,8 +21,8 @@ angular.module('stockDogApp')
       ]
     };
 
-    // Helper: Update sc
-    function updateCharts () {
+    // Helper: Update chart objects
+    var updateCharts = function () {
       // Donut chart
       var donutChart = {
         type: 'PieChart',
@@ -56,10 +56,10 @@ angular.module('stockDogApp')
       });
       $scope.donutChart = donutChart;
       $scope.columnChart = columnChart;
-    }
+    };
 
     // Helper function for reseting controller state
-    function reset () {
+    var reset = function () {
       // TODO
       QuoteService.clear();
       _.each($scope.watchlists, function (watchlist) {
@@ -80,9 +80,9 @@ angular.module('stockDogApp')
         });
         unregisterHandlers.push(unregister);
       });
-    }
+    };
 
-    function recalculate () {
+    var recalculate = function () {
       $scope.marketValue = 0;
       $scope.dayChange = 0;
       _.each($scope.watchlists, function (watchlist) {
@@ -90,7 +90,7 @@ angular.module('stockDogApp')
         $scope.dayChange += watchlist.dayChange ? watchlist.dayChange : 0;
       });
       updateCharts();
-    }
+    };
 
     // Watch for changes to watchlists. Notice that
     // we are NOT deep-watching the entire object (bad)

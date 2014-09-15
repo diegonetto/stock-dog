@@ -34,12 +34,14 @@ angular.module('stockDogApp')
           _.extend(stock, StockModel);
           this.stocks.push(stock);
         }
+        this.recalculate();
         saveModel();
       },
       removeStock: function (stock) {
         _.remove(this.stocks, function (s) {
           return s.company.symbol === stock.company.symbol;
         });
+        this.recalculate();
         saveModel();
       },
       recalculate: function () {
@@ -59,7 +61,7 @@ angular.module('stockDogApp')
     /**
      * Helper: Load Service Model from LocalStorage
      */
-    function loadModel () {
+    var loadModel = function () {
       var model = {
         watchlists: localStorage['StockDog.watchlists'] ? JSON.parse(localStorage['StockDog.watchlists']) : [],
         nextId: localStorage['StockDog.nextId'] ? parseInt(localStorage['StockDog.nextId']) : 0
@@ -71,24 +73,24 @@ angular.module('stockDogApp')
         });
       });
       return model;
-    }
+    };
 
     /**
      * Helper: Save Service Model to LocalStorage
      */
-    function saveModel () {
+    var saveModel = function () {
       localStorage['StockDog.watchlists'] = JSON.stringify(Model.watchlists);
       localStorage['StockDog.nextId'] = Model.nextId;
-    }
+    };
 
     /**
      * Helper: Find a watchlist inside Service Model given id.
      */
-    function findById (listId) {
+    var findById = function (listId) {
       return _.find(Model.watchlists, function (watchlist) {
         return watchlist.id === parseInt(listId);
       });
-    }
+    };
 
     /**
      * Service: CREATE

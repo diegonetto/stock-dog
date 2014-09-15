@@ -12,19 +12,7 @@ angular.module('stockDogApp')
     var stocks = [];
     var BASE = 'http://query.yahooapis.com/v1/public/yql';
 
-    this.register = function (stock) {
-      stocks.push(stock);
-    };
-
-    this.deregister = function (stock) {
-      _.remove(stocks, stock);
-    };
-
-    this.clear = function () {
-      stocks = [];
-    };
-
-    function update (quotes) {
+    var update = function (quotes) {
       // Ensure that the current quotes match registered stocks
       if (quotes.length === stocks.length) {
         _.each(quotes, function (quote, idx) {
@@ -37,7 +25,19 @@ angular.module('stockDogApp')
           stock.save();
         });
       }
-    }
+    };
+
+    this.register = function (stock) {
+      stocks.push(stock);
+    };
+
+    this.deregister = function (stock) {
+      _.remove(stocks, stock);
+    };
+
+    this.clear = function () {
+      stocks = [];
+    };
 
     this.fetch = function () {
       var symbols = _.reduce(stocks, function (symbols, stock) {
