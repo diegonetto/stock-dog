@@ -1,12 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc directive
- * @name stockDogApp.directive:contenteditable
- * @description
- * # contenteditable
- */
-
 var NUMBER_REGEXP = /^\s*(\-|\+)?(\d+|(\d*(\.\d*)))\s*$/;
 
 angular.module('stockDogApp')

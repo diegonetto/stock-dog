@@ -1,16 +1,10 @@
 'use strict';
 
-/**
- * @ngdoc directive
- * @name stockDogApp.directive:stockRow
- * @description
- * # stockRow
- */
 angular.module('stockDogApp')
-  .directive('stockRow', function ($timeout, QuoteService) {
+  .directive('stkStockRow', function ($timeout, QuoteService) {
     return {
       restrict: 'A',
-      require: '^stockTable',
+      require: '^stkStockTable',
       scope: {
         stock: '=',
         isLast: '='

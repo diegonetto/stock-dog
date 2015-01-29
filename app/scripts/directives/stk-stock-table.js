@@ -1,13 +1,7 @@
 'use strict';
 
-/**
- * @ngdoc directive
- * @name stockDogApp.directive:stockTable
- * @description
- * # stockTable
- */
 angular.module('stockDogApp')
-  .directive('stockTable', function () {
+  .directive('stkStockTable', function () {
     return {
       templateUrl: 'views/templates/stock-table.html',
       restrict: 'E',

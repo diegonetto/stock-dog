@@ -1,7 +1,7 @@
 <div class="row">
   <!-- Left Column -->
   <div class="col-md-3">
-    <watchlist-panel></watchlist-panel>
+    <stk-watchlist-panel></stk-watchlist-panel>
   </div>
 
   <!-- Right Column -->
@@ -22,8 +22,7 @@
           <p>Looks like you haven't added any stocks to this watchlist yet!</p>
           <p>Do so now by clicking the <span class="glyphicon glyphicon-plus"></span> located above.</p>
         </div>
-        <stock-table ng-show="stocks.length" watchlist="watchlist">
-        </stock-table>
+        <stk-stock-table ng-show="stocks.length" watchlist="watchlist">
       </div>
     </div>
   </div>

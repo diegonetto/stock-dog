@@ -1,18 +1,12 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name stockDogApp.Quoteservice
- * @description
- * # Quoteservice
- * Service in the stockDogApp.
- */
 angular.module('stockDogApp')
   .service('QuoteService', function ($http, $interval) {
     var stocks = [];
     var BASE = 'http://query.yahooapis.com/v1/public/yql';
 
     var update = function (quotes) {
+      console.log(quotes);
       // Ensure that the current quotes match registered stocks
       if (quotes.length === stocks.length) {
         _.each(quotes, function (quote, idx) {

@@ -1,14 +1,8 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name stockDogApp.controller:DashboardCtrl
- * @description
- * # OverviewCtrl
- * Controller of the stockDogApp
- */
 angular.module('stockDogApp')
   .controller('DashboardCtrl', function ($scope, WatchlistService, QuoteService) {
+    // Initializations
     var unregisterHandlers = [];
     $scope.watchlists = WatchlistService.query();
     $scope.cssStyle = 'height:300px;';
@@ -50,9 +44,12 @@ angular.module('stockDogApp')
         },
         formatters: formatters
       };
+
+      // Push data onto both chart objects
       _.each($scope.watchlists, function (watchlist) {
         donutChart.data.push([watchlist.name, watchlist.marketValue]);
-        columnChart.data.push([watchlist.name, watchlist.dayChange, watchlist.dayChange < 0 ? 'Red' : 'Green']);
+        columnChart.data.push([watchlist.name, watchlist.dayChange,
+          watchlist.dayChange < 0 ? 'Red' : 'Green']);
       });
       $scope.donutChart = donutChart;
       $scope.columnChart = columnChart;
@@ -60,7 +57,7 @@ angular.module('stockDogApp')
 
     // Helper function for reseting controller state
     var reset = function () {
-      // TODO
+      // Clear QuoteService before registering new stocks
       QuoteService.clear();
       _.each($scope.watchlists, function (watchlist) {
         _.each(watchlist.stocks, function (stock) {
@@ -68,7 +65,7 @@ angular.module('stockDogApp')
         });
       });
 
-      // Register watches
+      // Unregister existing $watch listeners before creating new ones
       _.each(unregisterHandlers, function(unregister) {
         unregister();
       });
@@ -82,12 +79,15 @@ angular.module('stockDogApp')
       });
     };
 
+    // Compute the new total MarketValue and DayChange
     var recalculate = function () {
       $scope.marketValue = 0;
       $scope.dayChange = 0;
       _.each($scope.watchlists, function (watchlist) {
-        $scope.marketValue += watchlist.marketValue ? watchlist.marketValue : 0;
-        $scope.dayChange += watchlist.dayChange ? watchlist.dayChange : 0;
+        $scope.marketValue += watchlist.marketValue ?
+          watchlist.marketValue : 0;
+        $scope.dayChange += watchlist.dayChange ?
+          watchlist.dayChange : 0;
       });
       updateCharts();
     };

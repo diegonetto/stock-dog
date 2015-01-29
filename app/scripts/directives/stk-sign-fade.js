@@ -1,23 +1,18 @@
 'use strict';
 
-/**
- * @ngdoc directive
- * @name stockDogApp.directive:signFade
- * @description
- * # signFade
- */
 angular.module('stockDogApp')
-  .directive('signFade', function ($animate) {
+  .directive('stkSignFade', function ($animate) {
     return {
       restrict: 'A',
-      scope: {
-        signFade: '@'
-      },
-      link: function ($scope, $element) {
-        $scope.$watch('signFade', function (newVal, oldVal) {
-          if (newVal === oldVal) { return; } // skip initialization execution
+      link: function ($scope, $element, $attrs) {
+        var oldVal = null;
+        $attrs.$observe('stkSignFade', function (newVal) {
+          if (oldVal && oldVal == newVal) { return; }
+
           var oldPrice = parseFloat(oldVal);
           var newPrice = parseFloat(newVal);
+          oldVal = newVal;
+
           if (oldPrice && newPrice) {
             var direction = newPrice - oldPrice >= 0 ? 'up' : 'down';
             $animate.addClass($element, 'change-' + direction, function() {

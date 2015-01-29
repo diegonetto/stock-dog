@@ -1,18 +1,7 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name stockDogApp.Watchlist
- * @description
- * # Watchlist
- * Service in the stockDogApp.
- */
-// This service handles loading & saving Watchlists to HTML5 LocalStorage.
-// Normally the $resource service would be used to fetch
-// collection from REST API endpoint, but since we're using
-// HTML5 LocalStorage, we need to provide CRUD functionality.
 angular.module('stockDogApp')
-  .service('WatchlistService', function () {
+  .service('WatchlistService', function WatchlistService() {
     // Augment Stocks with additional helper functions
     var StockModel = {
       save: function () {
@@ -58,9 +47,7 @@ angular.module('stockDogApp')
       }
     };
 
-    /**
-     * Helper: Load Service Model from LocalStorage
-     */
+    // Helper: Load watchlists from localStorage
     var loadModel = function () {
       var model = {
         watchlists: localStorage['StockDog.watchlists'] ? JSON.parse(localStorage['StockDog.watchlists']) : [],
@@ -75,37 +62,20 @@ angular.module('stockDogApp')
       return model;
     };
 
-    /**
-     * Helper: Save Service Model to LocalStorage
-     */
+    // Helper: Save watchlists to localStorage
     var saveModel = function () {
       localStorage['StockDog.watchlists'] = JSON.stringify(Model.watchlists);
       localStorage['StockDog.nextId'] = Model.nextId;
     };
 
-    /**
-     * Helper: Find a watchlist inside Service Model given id.
-     */
+    // Helper: Use lodash to find a watchlist with given ID
     var findById = function (listId) {
       return _.find(Model.watchlists, function (watchlist) {
         return watchlist.id === parseInt(listId);
       });
     };
 
-    /**
-     * Service: CREATE
-     */
-    this.save = function (watchlist) {
-      watchlist.id = Model.nextId++;
-      watchlist.stocks = [];
-      _.extend(watchlist, WatchlistModel);
-      Model.watchlists.push(watchlist);
-      saveModel();
-    };
-
-    /**
-     * Service: READ
-     */
+    // Return all watchlists or find by given ID
     this.query = function (listId) {
       if (listId) {
         return findById(listId);
@@ -114,9 +84,16 @@ angular.module('stockDogApp')
       }
     };
 
-    /**
-     * Service: DESTROY
-     */
+    // Save a new watchlist to watchlists model
+    this.save = function (watchlist) {
+      watchlist.id = Model.nextId++;
+      watchlist.stocks = [];
+      _.extend(watchlist, WatchlistModel);
+      Model.watchlists.push(watchlist);
+      saveModel();
+    };
+
+    // Remove given watchlist from watchlists model
     this.remove = function (watchlist) {
       _.remove(Model.watchlists, function (list) {
         return list.id === watchlist.id;
@@ -124,8 +101,6 @@ angular.module('stockDogApp')
       saveModel();
     };
 
-    /**
-     * Initialize Service Model for this Singleton
-     */
+    // Initialize Model for this singleton service
     var Model = loadModel();
   });

@@ -1,39 +1,26 @@
-/* Space out content a bit */
-body {
+/* Dashboard View Styles */
+.well {
+  background-color: white;
+  text-align: center;
 }
 
-/* ADDED THESE -- TODO: CLEAN UP */
-textarea {
-  resize: vertical;
+/* Stock Table Styles */
+.table {
+  text-align: center;
+  margin-bottom: 5px;
+}
+tfoot {
+  font-weight: bold;
 }
 a {
   cursor: pointer;
 }
-
-body {
-  background: #fafafa;
-}
-
 span[disabled="disabled"] a {
   text-decoration: none;
   color: black;
 }
 span[disabled="disabled"] {
   pointer-events: none;
-}
-
-.well {
-  background-color: white;
-  text-align: center;
-}
-
-.table {
-  text-align: center;
-  margin-bottom: 5px;
-}
-
-tfoot {
-  font-weight: bold;
 }
 
 /* Styles for ngAnimate animations */
